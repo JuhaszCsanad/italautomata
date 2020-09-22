@@ -7,6 +7,8 @@
 <link href="index.css" rel="stylesheet">
 </head>
 <body>
+
+<div id="penz">$</div>    
 <div class="container automata">
 
 <div class="bal" id="bal"></div>
@@ -14,34 +16,63 @@
 
 <div class="jobb">
 <div class="kepernyo" id="kepernyo">
-
 </div>
 
 <div class="gombok" id="gombok">
-
 </div>
 
-<button>OK</button>
+<button onclick="vasarlas()">OK</button>
+<div class="tarolo"  id="tarolo">
+
+</div>
 </div>
 
 </div>
 
 <script>
 //gombok létrehozása
+let uditok=document.getElementById("bal");
+let udito_kepek=["apenta.jpg", "cocacola.png", "cola.jpg" ,"hellkave.jpg","kinley.jpg","marka.jpg"];
 let gomb_tarolo=document.getElementById("gombok");
+let kivalasztott=-1;
+let udito_arak=[150,200,300,190,250,100,];
+let penz= 2000;
+document.getElementById("penz").innerHTML= penz+"Ft";
+
 for(let i=1; i<=9; i++){
 gomb_tarolo.innerHTML+='<button onclick="katt('+i+')">'+ i +"</button>"
 }
+
 function katt(szam){
 document.getElementById("kepernyo").innerHTML=szam;
 }
-//Üdítők felpakolása
-let uditok=document.getElementById("bal");
-for(let i=0;i<3;i++){
-uditok.innerHTML+='<img src="viz.png">'
+
+function katt(szam){
+    document.getElementById("kepernyo").innerHTML=szam;
+    kivalasztott =szam;
 }
 
+function vasarlas(){
+    if(udito_kepek[kivalasztott-1]==undefined){
+        document.getElementById("kepernyo").innerHTML="Elfogyott!";
+    }
+    else{
+    alert("Megvetted a "+udito_kepek[kivalasztott-1]+" számú üdítőt!")
+    document.getElementById("tarolo").innerHTML='<img src="'+udito_kepek[kivalasztott-1]+'">';
 
+    if(penz-udito_arak[kivalasztott-1]<0){
+        document.getElementById("kepernyo").innerHTML="Túl drága!"
+    }else{
+    penz-=udito_arak[kivalasztott-1];
+    document.getElementById("penz").innerHTML= penz+"Ft";
+        }
+    }
+}
+//Üdítők felpakolása
+
+for(let i=0;i<udito_kepek.length;i++){
+    uditok.innerHTML+='<div><img src="'+udito_kepek[i]+'">'+(i+1)+'<br>'+udito_arak[i]+'Ft</div>';
+}
 </script>
 <body>
 </html>
